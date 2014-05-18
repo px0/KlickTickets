@@ -14,3 +14,23 @@
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
 #endif
+
+#import <Availability.h>
+#if __IPHONE_OS_VERSION_MIN_REQUIRED
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#else
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <CoreServices/CoreServices.h>
+#endif
+
+
+//ReactiveCocoa
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "RACEXTScope.h"
+
+//RestKit
+#import "RestKit/RestKit.h" 
+
+//Stuff
+#import "ObjectiveSugar.h"
