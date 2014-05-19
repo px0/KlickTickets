@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *Title;
 @property (nonatomic, copy) NSString *TicketStatusName;
 @property (nonatomic, copy) NSString *ProjectName;
+@property (nonatomic, copy) NSString *GroupName;
 
 + (RKMapping *)jsonMapping;
 @end

@@ -23,6 +23,7 @@
 		RAC(self, TicketStatusName) = RACObserve(self.model, TicketStatusName);
 		RAC(self, TicketID) = RACObserve(self.model, TicketID);
 		RAC(self, ProjectName) = RACObserve(self.model, ProjectName);
+		RAC(self, GroupName) = RACObserve(self.model, GroupName);
 
     }
     return self;
@@ -33,35 +34,5 @@
 }
 
 #pragma mark - Class methods
-+ (RACSignal *) getAll; {
-	RACSubject *viewModelsSignal = [RACSubject subject];
-	
-	NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [Ticket jsonMapping];
-	RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping
-																							method:RKRequestMethodGET
-																					   pathPattern:nil
-																						   keyPath:@"Entries"
-																					   statusCodes:statusCodeSet];
-	
-    NSURL *url = [NSURL URLWithString:@"http://genome.klick.com:80/api/Ticket.json?ForGrid=true"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request
-                                                                        responseDescriptors:@[responseDescriptor]];
-    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-		NSArray *ticketViewModels = [mappingResult.array map:^id(Ticket* t) {
-			return [[TicketViewModel alloc] initWithModel:t];
-		}];
-		[viewModelsSignal sendNext:ticketViewModels];
-		[viewModelsSignal sendCompleted];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-        NSLog(@"ERROR: %@", error);
-        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
-		[viewModelsSignal sendError:error];
-    }];
-    
-    [operation start];
-	
-	return viewModelsSignal;
-}
+
 @end

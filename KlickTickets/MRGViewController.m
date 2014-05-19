@@ -9,12 +9,15 @@
 #import "MRGViewController.h"
 #import "GenomeAuthenticator.h"
 #import "TicketViewModel.h"
+#import "TicketListViewModel.h"
 
 //MRGViewController
 @interface MRGViewController ()
 @property (strong, nonatomic) GenomeAuthenticator *genomeAuthenticator;
+@property (strong, nonatomic) TicketListViewModel *ticketListViewModel;
+
 @property (strong, nonatomic) NSMutableDictionary *sections;
-@property (strong, nonatomic) NSArray *keys;
+@property (strong, nonatomic) NSArray *sectionKeys;
 @end
 
 @implementation MRGViewController
@@ -52,34 +55,15 @@
 }
 
 - (void) getTickets {
-	RACSignal *ticketsSignal = [TicketViewModel getAll];
+	self.ticketListViewModel = [TicketListViewModel new];
+	RAC(self, sections) = RACObserve(self.ticketListViewModel, sections);
+	RAC(self, sectionKeys) = RACObserve(self.ticketListViewModel, sectionKeys);
 	
-	@weakify(self);
-	[ticketsSignal subscribeNext:^(NSArray *viewModels) {
-		@strongify(self);
-		
-		self.sections = [NSMutableDictionary new];
-		
-		[[viewModels
-		  //filter out closed tickets
-		 select:^BOOL(TicketViewModel *t) {
-			return ![t.TicketStatusName isEqualToString:@"closed"];
-		}]
-		 //create section if it doesn't exist and add that item to the section
-		 each:^(TicketViewModel *t) {
-			 NSMutableArray *sectionItems = self.sections[t.ProjectName];
-			 sectionItems = sectionItems ? [NSMutableArray arrayWithArray:sectionItems] : [NSMutableArray new];
-			 [sectionItems addObject:t];
-			 self.sections[t.ProjectName] = sectionItems;
-		}];
-		
-		NSArray *keys = [self.sections allKeys];
-		self.keys = [keys sortedArrayUsingComparator:^(id a, id b) {
-			return [a compare:b options:NSNumericSearch];
-		}];
-		
+	RACSignal *sectionKeysSignal = RACObserve(self.ticketListViewModel, sectionKeys);
+	[[sectionKeysSignal
+	  throttle:0.5]
+	  subscribeNext:^(id x) {
 		[self.tableView reloadData];
-		
 	}];
 }
 
@@ -88,31 +72,37 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [self.keys count];
+    return [self.sectionKeys count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-	NSString *key = [self.keys objectAtIndex:section];
+	NSString *key = [self.sectionKeys objectAtIndex:section];
     return [self.sections[key] count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	TicketViewModel *tvm = [self.sections[[self.keys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-//	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+	TicketViewModel *tvm = [self.sections[[self.sectionKeys objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+//	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+	
+	UILabel *ticketNumberLabel = (UILabel *)[cell viewWithTag:100];
+	UILabel *ticketStatusLabel = (UILabel *)[cell viewWithTag:101];
+	UILabel *ticketTitleLabel = (UILabel *)[cell viewWithTag:102];
 	
 	// Configure the cell...
-	cell.textLabel.text = tvm.Title;
+	ticketTitleLabel.text = tvm.Title;
+	ticketStatusLabel.text = tvm.TicketStatusName;
+	ticketNumberLabel.text = [NSString stringWithFormat:@"%@", tvm.TicketID];
 	
 	return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return self.keys[section];
+	return self.sectionKeys[section];
 }
 /*
  // Override to support conditional editing of the table view.

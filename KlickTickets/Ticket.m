@@ -12,7 +12,7 @@
 
 + (RKMapping *)jsonMapping; {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[Ticket class]];
-    [mapping addAttributeMappingsFromArray:@[@"ProjectName", @"TicketID", @"Title", @"TicketStatusName"]];
+    [mapping addAttributeMappingsFromArray:@[@"GroupName", @"ProjectName", @"TicketID", @"Title", @"TicketStatusName"]];
     return mapping;
 }
 @end
