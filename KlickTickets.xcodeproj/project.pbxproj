@@ -25,6 +25,7 @@
 		698E72BD1929615E00D6C582 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 698E72BC1929615E00D6C582 /* Ticket.m */; };
 		698E72C0192961BE00D6C582 /* TicketViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 698E72BF192961BE00D6C582 /* TicketViewModel.m */; };
 		698F2580192A51EA00549321 /* TicketListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F257F192A51EA00549321 /* TicketListViewModel.m */; };
+		698F2583192AB27E00549321 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F2582192AB27E00549321 /* TicketDetailViewController.m */; };
 		A7FC56DB76F74D219C284EC0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A8160CAFE7474285415916 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,8 @@
 		698E72BF192961BE00D6C582 /* TicketViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketViewModel.m; sourceTree = "<group>"; };
 		698F257E192A51EA00549321 /* TicketListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketListViewModel.h; sourceTree = "<group>"; };
 		698F257F192A51EA00549321 /* TicketListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketListViewModel.m; sourceTree = "<group>"; };
+		698F2581192AB27E00549321 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
+		698F2582192AB27E00549321 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
 		78B36D9A7F374FE28D533FFC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +199,8 @@
 				6926FCAA192859EC00621556 /* Main_iPad.storyboard */,
 				6926FCAD192859EC00621556 /* MRGViewController.h */,
 				6926FCAE192859EC00621556 /* MRGViewController.m */,
+				698F2581192AB27E00549321 /* TicketDetailViewController.h */,
+				698F2582192AB27E00549321 /* TicketDetailViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 				698E72C0192961BE00D6C582 /* TicketViewModel.m in Sources */,
 				698F2580192A51EA00549321 /* TicketListViewModel.m in Sources */,
 				6926FCA2192859EC00621556 /* main.m in Sources */,
+				698F2583192AB27E00549321 /* TicketDetailViewController.m in Sources */,
 				6926FCA6192859EC00621556 /* MRGAppDelegate.m in Sources */,
 				698E72BD1929615E00D6C582 /* Ticket.m in Sources */,
 			);
