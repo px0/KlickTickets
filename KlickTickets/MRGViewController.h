@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MRGViewController : UITableViewController 
+@interface MRGViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 @end

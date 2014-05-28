@@ -16,4 +16,5 @@
 //methods
 - (void) getTickets;
 
++ (NSFetchRequest *)fetchRequest;
 @end

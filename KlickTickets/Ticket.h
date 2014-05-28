@@ -2,37 +2,20 @@
 //  Ticket.h
 //  KlickTickets
 //
-//  Created by Maximilian Gerlach on 2014-05-18.
+//  Created by Maximilian Gerlach on 2014-05-26.
 //  Copyright (c) 2014 Maximilian Gerlach. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Ticket : NSObject
-@property (nonatomic, copy) NSNumber *TicketID;
-@property (nonatomic, copy) NSString *Title;
-@property (nonatomic, copy) NSString *TicketStatusName;
-@property (nonatomic, copy) NSString *ProjectName;
-@property (nonatomic, copy) NSString *GroupName;
 
-+ (RKMapping *)jsonMapping;
+@interface Ticket : NSManagedObject
+
+@property (nonatomic, retain) NSString * ticketID;
+@property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * ticketStatusName;
+@property (nonatomic, retain) NSString * projectName;
+@property (nonatomic, retain) NSString * groupName;
+
 @end
-
-/*
- {
- "GroupName": "OpenForMe",
- "TicketID": 550533,
- "Title": "Investigate Xamarin",
- "Created": "/Date(1375895301613-0000)/",
- "ProjectID": 9991,
- "LastUpdated": "/Date(1398771837813-0000)/",
- "AccountPortfolioName": "Systems, Infrastructure, and Platform",
- "ProjectName": "smartsite v4",
- "CompanyID": 1,
- "CompanyName": "Klick Inc.",
- "AssignedToUser": "Max Gerlach",
- "AssignedByUser": "Cynthia Dahl",
- "OwnerUser": "Steve Willer",
- "TicketStatusName": "open"
- }
- */

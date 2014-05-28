@@ -8,14 +8,43 @@
 
 #import "MRGAppDelegate.h"
 
+
+
 @implementation MRGAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+	
+	[self setup];
+	
     return YES;
 }
-							
+
+- (NSManagedObjectModel *)managedObjectModel {
+    return [NSManagedObjectModel mergedModelFromBundles:nil];
+}
+
+- (id)optionsForSqliteStore {
+    return @{
+             NSInferMappingModelAutomaticallyOption: @YES,
+             NSMigratePersistentStoresAutomaticallyOption: @YES
+			 };
+}
+
+- (void)setup {
+    self.objectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
+    NSString *path = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"Store.sqlite"];
+    NSLog(@"Setting up store at %@", path);
+    [self.objectStore addSQLitePersistentStoreAtPath:path
+                              fromSeedDatabaseAtPath:nil
+                                   withConfiguration:nil
+                                             options:[self optionsForSqliteStore]
+                                               error:nil];
+    [self.objectStore createManagedObjectContexts];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
 	// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

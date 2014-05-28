@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6917ACD7193364C1000D315C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6917ACD5193364C1000D315C /* Model.xcdatamodeld */; };
+		6917ACDD1933671A000D315C /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6917ACDC1933671A000D315C /* Ticket.m */; };
+		6917ACDF193370AA000D315C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6917ACDE193370AA000D315C /* CoreData.framework */; };
 		6926FC96192859EC00621556 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6926FC95192859EC00621556 /* Foundation.framework */; };
 		6926FC98192859EC00621556 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6926FC97192859EC00621556 /* CoreGraphics.framework */; };
 		6926FC9A192859EC00621556 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6926FC99192859EC00621556 /* UIKit.framework */; };
@@ -22,10 +25,9 @@
 		6926FCBA192859ED00621556 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6926FC99192859EC00621556 /* UIKit.framework */; };
 		6926FCC2192859ED00621556 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6926FCC0192859ED00621556 /* InfoPlist.strings */; };
 		6926FCC4192859ED00621556 /* KlickTicketsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6926FCC3192859ED00621556 /* KlickTicketsTests.m */; };
-		698E72BD1929615E00D6C582 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 698E72BC1929615E00D6C582 /* Ticket.m */; };
-		698E72C0192961BE00D6C582 /* TicketViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 698E72BF192961BE00D6C582 /* TicketViewModel.m */; };
 		698F2580192A51EA00549321 /* TicketListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F257F192A51EA00549321 /* TicketListViewModel.m */; };
 		698F2583192AB27E00549321 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F2582192AB27E00549321 /* TicketDetailViewController.m */; };
+		69D9DAEC193606AB00CB8778 /* Ticket+methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D9DAEB193606AB00CB8778 /* Ticket+methods.m */; };
 		A7FC56DB76F74D219C284EC0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A8160CAFE7474285415916 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,10 @@
 
 /* Begin PBXFileReference section */
 		55A8160CAFE7474285415916 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6917ACD6193364C1000D315C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		6917ACDB1933671A000D315C /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		6917ACDC1933671A000D315C /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
+		6917ACDE193370AA000D315C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6926FC92192859EC00621556 /* KlickTickets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KlickTickets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6926FC95192859EC00621556 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6926FC97192859EC00621556 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,14 +67,12 @@
 		6926FCBF192859ED00621556 /* KlickTicketsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KlickTicketsTests-Info.plist"; sourceTree = "<group>"; };
 		6926FCC1192859ED00621556 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6926FCC3192859ED00621556 /* KlickTicketsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KlickTicketsTests.m; sourceTree = "<group>"; };
-		698E72BB1929615E00D6C582 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
-		698E72BC1929615E00D6C582 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
-		698E72BE192961BE00D6C582 /* TicketViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketViewModel.h; sourceTree = "<group>"; };
-		698E72BF192961BE00D6C582 /* TicketViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketViewModel.m; sourceTree = "<group>"; };
 		698F257E192A51EA00549321 /* TicketListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketListViewModel.h; sourceTree = "<group>"; };
 		698F257F192A51EA00549321 /* TicketListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketListViewModel.m; sourceTree = "<group>"; };
 		698F2581192AB27E00549321 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
 		698F2582192AB27E00549321 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
+		69D9DAEA193606AB00CB8778 /* Ticket+methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Ticket+methods.h"; sourceTree = "<group>"; };
+		69D9DAEB193606AB00CB8778 /* Ticket+methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Ticket+methods.m"; sourceTree = "<group>"; };
 		78B36D9A7F374FE28D533FFC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6917ACDF193370AA000D315C /* CoreData.framework in Frameworks */,
 				6926FC98192859EC00621556 /* CoreGraphics.framework in Frameworks */,
 				6926FC9A192859EC00621556 /* UIKit.framework in Frameworks */,
 				6926FC96192859EC00621556 /* Foundation.framework in Frameworks */,
@@ -120,6 +125,7 @@
 		6926FC94192859EC00621556 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6917ACDE193370AA000D315C /* CoreData.framework */,
 				6926FC95192859EC00621556 /* Foundation.framework */,
 				6926FC97192859EC00621556 /* CoreGraphics.framework */,
 				6926FC99192859EC00621556 /* UIKit.framework */,
@@ -175,8 +181,11 @@
 		698E72B81929612300D6C582 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				698E72BB1929615E00D6C582 /* Ticket.h */,
-				698E72BC1929615E00D6C582 /* Ticket.m */,
+				6917ACD5193364C1000D315C /* Model.xcdatamodeld */,
+				6917ACDB1933671A000D315C /* Ticket.h */,
+				6917ACDC1933671A000D315C /* Ticket.m */,
+				69D9DAEA193606AB00CB8778 /* Ticket+methods.h */,
+				69D9DAEB193606AB00CB8778 /* Ticket+methods.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -184,8 +193,6 @@
 		698E72B91929612B00D6C582 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				698E72BE192961BE00D6C582 /* TicketViewModel.h */,
-				698E72BF192961BE00D6C582 /* TicketViewModel.m */,
 				698F257E192A51EA00549321 /* TicketListViewModel.h */,
 				698F257F192A51EA00549321 /* TicketListViewModel.m */,
 			);
@@ -340,12 +347,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6926FCAF192859EC00621556 /* MRGViewController.m in Sources */,
-				698E72C0192961BE00D6C582 /* TicketViewModel.m in Sources */,
 				698F2580192A51EA00549321 /* TicketListViewModel.m in Sources */,
+				6917ACD7193364C1000D315C /* Model.xcdatamodeld in Sources */,
 				6926FCA2192859EC00621556 /* main.m in Sources */,
 				698F2583192AB27E00549321 /* TicketDetailViewController.m in Sources */,
 				6926FCA6192859EC00621556 /* MRGAppDelegate.m in Sources */,
-				698E72BD1929615E00D6C582 /* Ticket.m in Sources */,
+				69D9DAEC193606AB00CB8778 /* Ticket+methods.m in Sources */,
+				6917ACDD1933671A000D315C /* Ticket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +582,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6917ACD5193364C1000D315C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6917ACD6193364C1000D315C /* Model.xcdatamodel */,
+			);
+			currentVersion = 6917ACD6193364C1000D315C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6926FC8A192859EC00621556 /* Project object */;
 }

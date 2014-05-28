@@ -7,9 +7,23 @@
 //
 
 #import "TicketListViewModel.h"
+#import "Ticket+methods.h"
+#import "MRGAppDelegate.h"
 
-#import "TicketViewModel.h"
-#import "Ticket.h"
+#import <CoreData/CoreData.h>
+#import "ObjectMapping.h"
+#import "RKManagedObjectStore.h"
+#import "RKManagedObjectImporter.h"
+#import "RKManagedObjectMappingOperationDataSource.h"
+#import "RKEntityMapping.h"
+#import "RKManagedObjectCaching.h"
+#import "RKInMemoryManagedObjectCache.h"
+#import "RKFetchRequestManagedObjectCache.h"
+
+#import "RKPropertyInspector+CoreData.h"
+#import "NSManagedObjectContext+RKAdditions.h"
+#import "NSManagedObject+RKAdditions.h"
+#import "RKManagedObjectRequestOperation.h" 
 
 @interface TicketListViewModel ()
 
@@ -34,6 +48,7 @@
 - (void) getTickets; {
 	RACSignal *ticketsSignal = [TicketListViewModel getTicketsFromWebservice];
 	
+	/*
 	@weakify(self);
 	[ticketsSignal subscribeNext:^(NSArray *viewModels) {
 		@strongify(self);
@@ -42,19 +57,19 @@
 		
 		[[[viewModels
 		  //filter out closed tickets
-		  select:^BOOL(TicketViewModel *t) {
-			  return ![t.TicketStatusName isEqualToString:@"closed"];
+		  select:^BOOL(Ticket *t) {
+			  return ![t.ticketStatusName isEqualToString:@"closed"];
 		  }]
 		 //only find the ones belonging to openforme
-		 select:^BOOL(TicketViewModel *t) {
-			 return [t.GroupName isEqualToString:@"OpenForMe"];
+		 select:^BOOL(Ticket *t) {
+			 return [t.groupName isEqualToString:@"OpenForMe"];
 		 }]
 		 //create section if it doesn't exist and add that item to the section
-		 each:^(TicketViewModel *t) {
-			 NSMutableArray *sectionItems = self.sections[t.ProjectName];
+		 each:^(Ticket *t) {
+			 NSMutableArray *sectionItems = self.sections[t.projectName];
 			 sectionItems = sectionItems ? [NSMutableArray arrayWithArray:sectionItems] : [NSMutableArray new];
 			 [sectionItems addObject:t];
-			 self.sections[t.ProjectName] = sectionItems;
+			 self.sections[t.projectName] = sectionItems;
 		 }];
 		
 		NSArray *keys = [self.sections allKeys];
@@ -62,13 +77,18 @@
 			return [a compare:b options:NSNumericSearch];
 		}];
 	}];
+	 */
 }
 
 + (RACSignal *) getTicketsFromWebservice; {
 	RACSubject *viewModelsSignal = [RACSubject subject];
 	
 	NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-    RKMapping *mapping = [Ticket jsonMapping];
+	
+	RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:@"Ticket"
+                                                   inManagedObjectStore:AppDelegate.objectStore];
+	[mapping addAttributeMappingsFromDictionary:[Ticket mapping]];
+	
 	RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping
 																							method:RKRequestMethodGET
 																					   pathPattern:nil
@@ -77,13 +97,14 @@
 	
     NSURL *url = [NSURL URLWithString:@"http://genome.klick.com:80/api/Ticket.json?ForGrid=true"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request
-                                                                        responseDescriptors:@[responseDescriptor]];
+	RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request
+                                                                                      responseDescriptors:@[responseDescriptor]];
+
+	operation.managedObjectContext = AppDelegate.objectStore.mainQueueManagedObjectContext;
+	operation.managedObjectCache = AppDelegate.objectStore.managedObjectCache;
+	
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-		NSArray *ticketViewModels = [mappingResult.array map:^id(Ticket* t) {
-			return [[TicketViewModel alloc] initWithModel:t];
-		}];
-		[viewModelsSignal sendNext:ticketViewModels];
+//		[viewModelsSignal sendNext:mappingResult.array];
 		[viewModelsSignal sendCompleted];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
@@ -94,5 +115,12 @@
     [operation start];
 	
 	return viewModelsSignal;
+}
+
++ (NSFetchRequest *)fetchRequest {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Entry"];
+    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    [fetchRequest setSortDescriptors:@[sortByDate]];
+    return fetchRequest;
 }
 @end
