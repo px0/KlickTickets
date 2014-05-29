@@ -27,26 +27,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Ticket"];
+
     NSError *error = nil;
-	
-	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"ticketID" ascending:NO];
-    fetchRequest.sortDescriptors = @[descriptor];
-	
     // Setup fetched results
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
+    self.fetchedResultsController = [TicketListViewModel fetchedResultsController];
     [self.fetchedResultsController setDelegate:self];
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	if (!fetchSuccessful) {
+		NSLog(@"Error while fetching results: %@", [error description]);
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -65,53 +54,20 @@
 		NSLog(@"An error has occured: %@", [error localizedDescription]);
 	} completed:^{
 		NSLog(@"You are now authenticated!");
-		[self getTickets];
+		[TicketListViewModel getTicketsFromWebservice];
 	}];
 }
 
-- (void) getTickets {
-	self.ticketListViewModel = [TicketListViewModel new];
-//	RAC(self, sections) = RACObserve(self.ticketListViewModel, sections);
-//	RAC(self, sectionKeys) = RACObserve(self.ticketListViewModel, sectionKeys);
-//	
-//	RACSignal *sectionKeysSignal = RACObserve(self.ticketListViewModel, sectionKeys);
-//	[[sectionKeysSignal
-//	  throttle:0.5]
-//	  subscribeNext:^(id x) {
-//		[self.tableView reloadData];
-//	}];
-}
-
-
-#pragma mark - nsscreencast
 #pragma mark UITableViewDelegate methods
 
 
 #pragma mark UITableViewDataSource methods
 
-- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section
-{
-    id<NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
-}
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSDate *lastUpdatedAt = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastUpdatedAt"];
-//    NSString *dateString = [NSDateFormatter localizedStringFromDate:lastUpdatedAt dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle];
-//    if (nil == dateString) {
-//        dateString = @"Never";
-//    }
-//    return [NSString stringWithFormat:@"Last Load: %@", dateString];
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *reuseIdentifier = @"cell";
-	
+    NSString * const reuseIdentifier = @"cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     Ticket *t = [self.fetchedResultsController objectAtIndexPath:indexPath];
-	// UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
 	
 	UILabel *ticketNumberLabel = (UILabel *)[cell viewWithTag:100];
 	UILabel *ticketStatusLabel = (UILabel *)[cell viewWithTag:101];
@@ -124,6 +80,25 @@
 	
     return cell;
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	//http://stackoverflow.com/questions/2809192/core-data-fetchedresultscontroller-question-what-is-sections-for
+	id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+	Ticket *t = [sectionInfo.objects objectAtIndex:0];
+	return t.projectName;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section
+{
+    id<NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
+}
+
 
 #pragma mark NSFetchedResultsControllerDelegate methods
 

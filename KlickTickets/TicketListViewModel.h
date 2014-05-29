@@ -10,11 +10,10 @@
 
 @interface TicketListViewModel : NSObject
 //properties
-@property (strong, nonatomic) NSMutableDictionary *sections;
-@property (strong, nonatomic) NSArray *sectionKeys;
 
 //methods
-- (void) getTickets;
++ (RACSignal *) getTicketsFromWebservice;
 
 + (NSFetchRequest *)fetchRequest;
++ (NSFetchedResultsController *) fetchedResultsController;
 @end

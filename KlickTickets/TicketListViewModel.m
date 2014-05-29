@@ -36,49 +36,12 @@
 {
     self = [super init];
     if (self) {
-        self.sections = [NSMutableDictionary new];
-		self.sectionKeys = [NSArray new];
-		
-		[self getTickets];
+
     }
     return self;
 }
 
 
-- (void) getTickets; {
-	RACSignal *ticketsSignal = [TicketListViewModel getTicketsFromWebservice];
-	
-	/*
-	@weakify(self);
-	[ticketsSignal subscribeNext:^(NSArray *viewModels) {
-		@strongify(self);
-		
-		self.sections = [NSMutableDictionary new];
-		
-		[[[viewModels
-		  //filter out closed tickets
-		  select:^BOOL(Ticket *t) {
-			  return ![t.ticketStatusName isEqualToString:@"closed"];
-		  }]
-		 //only find the ones belonging to openforme
-		 select:^BOOL(Ticket *t) {
-			 return [t.groupName isEqualToString:@"OpenForMe"];
-		 }]
-		 //create section if it doesn't exist and add that item to the section
-		 each:^(Ticket *t) {
-			 NSMutableArray *sectionItems = self.sections[t.projectName];
-			 sectionItems = sectionItems ? [NSMutableArray arrayWithArray:sectionItems] : [NSMutableArray new];
-			 [sectionItems addObject:t];
-			 self.sections[t.projectName] = sectionItems;
-		 }];
-		
-		NSArray *keys = [self.sections allKeys];
-		self.sectionKeys = [keys sortedArrayUsingComparator:^(id a, id b) {
-			return [a compare:b options:NSNumericSearch];
-		}];
-	}];
-	 */
-}
 
 + (RACSignal *) getTicketsFromWebservice; {
 	RACSubject *viewModelsSignal = [RACSubject subject];
@@ -118,9 +81,18 @@
 }
 
 + (NSFetchRequest *)fetchRequest {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Entry"];
-    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Ticket"];
+    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"projectName" ascending:NO];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ticketStatusName != 'closed' AND groupName == 'OpenForMe'"];
+	[fetchRequest setPredicate:predicate];
     [fetchRequest setSortDescriptors:@[sortByDate]];
     return fetchRequest;
+}
+
++ (NSFetchedResultsController *) fetchedResultsController {
+	return [[NSFetchedResultsController alloc] initWithFetchRequest:[self fetchRequest]
+											   managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
+												 sectionNameKeyPath:@"projectName"
+														  cacheName:nil];
 }
 @end
