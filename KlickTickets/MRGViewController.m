@@ -36,6 +36,13 @@
 	if (!fetchSuccessful) {
 		NSLog(@"Error while fetching results: %@", [error description]);
 	}
+	
+	RAC(self,title) = [RACObserve(self.fetchedResultsController, fetchedObjects) map:^id(NSArray *objects) {
+		if (objects) {
+			return [NSString stringWithFormat:@"%d tickets", [objects count]];
+		}
+		else return @"No tickets";
+	}];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -84,6 +91,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	//http://stackoverflow.com/questions/2809192/core-data-fetchedresultscontroller-question-what-is-sections-for
+	
 	id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
 	Ticket *t = [sectionInfo.objects objectAtIndex:0];
 	return t.projectName;
