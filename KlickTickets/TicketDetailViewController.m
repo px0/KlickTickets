@@ -10,7 +10,10 @@
 #import "RETableViewManager.h"
 
 @interface TicketDetailViewController ()
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) RETableViewManager* actionTableManager;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *actionTableHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webviewHeightConstraint;
 @end
 
 @implementation TicketDetailViewController
@@ -28,15 +31,49 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	[self.ticketDescription loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://placekitten.com/900/900"]]];
+	NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:0
+                                                                         toItem:self.view
+                                                                      attribute:NSLayoutAttributeLeft
+                                                                     multiplier:1.0
+                                                                       constant:0];
+    [self.view addConstraint:leftConstraint];
+	
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
+                                                                       attribute:NSLayoutAttributeTrailing
+                                                                       relatedBy:0
+                                                                          toItem:self.view
+                                                                       attribute:NSLayoutAttributeRight
+                                                                      multiplier:1.0
+                                                                        constant:0];
+    [self.view addConstraint:rightConstraint];
+	//==================
+	
+	[self.ticketDescription loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://placekitten.com/300/300"]]];
 	
 	self.actionTableManager = [[RETableViewManager alloc] initWithTableView:self.actionTable];
 	RETableViewSection *section = [RETableViewSection sectionWithHeaderTitle:@"Test"];
     [_actionTableManager addSection:section];
 	
-[@3 times:^{
-    [section addItem:@"Just a simple NSString"];
-}];
+	
+	[@3 times:^{
+		[section addItem:@"Just a simple NSString"];
+	}];
+
+
+	
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	self.actionTableHeightConstraint.constant = self.actionTable.contentSize.height;
+	
+	CGFloat height = [[self.ticketDescription stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
+	self.webviewHeightConstraint.constant = height;
+	
+	[self.view needsUpdateConstraints];
 }
 
 - (void)didReceiveMemoryWarning

@@ -39,9 +39,9 @@
 	
 	RAC(self,title) = [RACObserve(self.fetchedResultsController, fetchedObjects) map:^id(NSArray *objects) {
 		if (objects) {
-			return [NSString stringWithFormat:@"%d tickets", [objects count]];
+			return [NSString stringWithFormat:@"Open For You (%d)", [objects count]];
 		}
-		else return @"No tickets";
+		else return @"No Open Tickets";
 	}];
 }
 
