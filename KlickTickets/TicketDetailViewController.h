@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Ticket.h"
 
 @interface TicketDetailViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIWebView *ticketDescription;
-@property (weak, nonatomic) IBOutlet UITableView *actionTable;
 
+@property (strong, nonatomic) Ticket *ticket;
 @end

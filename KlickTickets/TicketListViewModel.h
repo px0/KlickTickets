@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Ticket.h"
 
 @interface TicketListViewModel : NSObject
 //properties
 
 //methods
 + (RACSignal *) getTicketsFromWebservice;
++ (void) updateTicket: (Ticket *)ticket;
 
 + (NSFetchRequest *)fetchRequest;
 + (NSFetchedResultsController *) fetchedResultsController;

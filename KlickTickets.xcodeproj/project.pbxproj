@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6917ACD7193364C1000D315C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6917ACD5193364C1000D315C /* Model.xcdatamodeld */; };
-		6917ACDD1933671A000D315C /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6917ACDC1933671A000D315C /* Ticket.m */; };
 		6917ACDF193370AA000D315C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6917ACDE193370AA000D315C /* CoreData.framework */; };
 		6926FC96192859EC00621556 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6926FC95192859EC00621556 /* Foundation.framework */; };
 		6926FC98192859EC00621556 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6926FC97192859EC00621556 /* CoreGraphics.framework */; };
@@ -28,6 +27,7 @@
 		698F2580192A51EA00549321 /* TicketListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F257F192A51EA00549321 /* TicketListViewModel.m */; };
 		698F2583192AB27E00549321 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698F2582192AB27E00549321 /* TicketDetailViewController.m */; };
 		69D9DAEC193606AB00CB8778 /* Ticket+methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D9DAEB193606AB00CB8778 /* Ticket+methods.m */; };
+		69D9DAF2193A1C1600CB8778 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D9DAF1193A1C1600CB8778 /* Ticket.m */; };
 		A7FC56DB76F74D219C284EC0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A8160CAFE7474285415916 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +44,6 @@
 /* Begin PBXFileReference section */
 		55A8160CAFE7474285415916 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6917ACD6193364C1000D315C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		6917ACDB1933671A000D315C /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
-		6917ACDC1933671A000D315C /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		6917ACDE193370AA000D315C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6926FC92192859EC00621556 /* KlickTickets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KlickTickets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6926FC95192859EC00621556 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -73,6 +71,8 @@
 		698F2582192AB27E00549321 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
 		69D9DAEA193606AB00CB8778 /* Ticket+methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Ticket+methods.h"; sourceTree = "<group>"; };
 		69D9DAEB193606AB00CB8778 /* Ticket+methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Ticket+methods.m"; sourceTree = "<group>"; };
+		69D9DAF0193A1C1600CB8778 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		69D9DAF1193A1C1600CB8778 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		78B36D9A7F374FE28D533FFC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,9 +181,9 @@
 		698E72B81929612300D6C582 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				69D9DAF0193A1C1600CB8778 /* Ticket.h */,
+				69D9DAF1193A1C1600CB8778 /* Ticket.m */,
 				6917ACD5193364C1000D315C /* Model.xcdatamodeld */,
-				6917ACDB1933671A000D315C /* Ticket.h */,
-				6917ACDC1933671A000D315C /* Ticket.m */,
 				69D9DAEA193606AB00CB8778 /* Ticket+methods.h */,
 				69D9DAEB193606AB00CB8778 /* Ticket+methods.m */,
 			);
@@ -353,7 +353,7 @@
 				698F2583192AB27E00549321 /* TicketDetailViewController.m in Sources */,
 				6926FCA6192859EC00621556 /* MRGAppDelegate.m in Sources */,
 				69D9DAEC193606AB00CB8778 /* Ticket+methods.m in Sources */,
-				6917ACDD1933671A000D315C /* Ticket.m in Sources */,
+				69D9DAF2193A1C1600CB8778 /* Ticket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

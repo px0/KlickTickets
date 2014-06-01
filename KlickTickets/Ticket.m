@@ -2,7 +2,7 @@
 //  Ticket.m
 //  KlickTickets
 //
-//  Created by Maximilian Gerlach on 2014-05-26.
+//  Created by Maximilian Gerlach on 2014-05-31.
 //  Copyright (c) 2014 Maximilian Gerlach. All rights reserved.
 //
 
@@ -11,10 +11,12 @@
 
 @implementation Ticket
 
-@dynamic ticketID;
-@dynamic title;
-@dynamic ticketStatusName;
-@dynamic projectName;
 @dynamic groupName;
+@dynamic projectName;
+@dynamic ticketID;
+@dynamic ticketStatusName;
+@dynamic title;
+@dynamic body;
+@dynamic assigner;
 
 @end

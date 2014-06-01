@@ -7,8 +7,14 @@
 //
 
 #import "MRGAppDelegate.h"
+#import "CoreData+MagicalRecord.h"
 
-
+// Use a class extension to expose access to MagicalRecord's private setter methods
+// from https://gist.github.com/chourobin/4727113
+@interface NSManagedObjectContext ()
++ (void)MR_setRootSavingContext:(NSManagedObjectContext *)context;
++ (void)MR_setDefaultContext:(NSManagedObjectContext *)moc;
+@end
 
 @implementation MRGAppDelegate
 
@@ -17,6 +23,8 @@
     // Override point for customization after application launch.
 	
 	[self setup];
+	
+	
 	
     return YES;
 }
@@ -43,6 +51,14 @@
                                              options:[self optionsForSqliteStore]
                                                error:nil];
     [self.objectStore createManagedObjectContexts];
+	
+	// Set up MagicalRecord with RestKit
+	// from https://gist.github.com/chourobin/4727113
+	[NSPersistentStoreCoordinator MR_setDefaultStoreCoordinator:self.objectStore.persistentStoreCoordinator];
+	[NSManagedObjectContext MR_setRootSavingContext:self.objectStore.persistentStoreManagedObjectContext];
+	[NSManagedObjectContext MR_setDefaultContext:self.objectStore.mainQueueManagedObjectContext];
+
+	
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

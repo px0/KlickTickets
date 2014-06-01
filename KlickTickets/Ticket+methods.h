@@ -9,5 +9,6 @@
 #import "Ticket.h"
 
 @interface Ticket (methods)
-+ (NSDictionary *) mapping;
++ (NSDictionary *) listMapping;
++ (NSDictionary *) detailMapping;
 @end

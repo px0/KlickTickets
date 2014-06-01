@@ -2,7 +2,7 @@
 //  Ticket.h
 //  KlickTickets
 //
-//  Created by Maximilian Gerlach on 2014-05-26.
+//  Created by Maximilian Gerlach on 2014-05-31.
 //  Copyright (c) 2014 Maximilian Gerlach. All rights reserved.
 //
 
@@ -12,10 +12,12 @@
 
 @interface Ticket : NSManagedObject
 
-@property (nonatomic, retain) NSString * ticketID;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * ticketStatusName;
-@property (nonatomic, retain) NSString * projectName;
 @property (nonatomic, retain) NSString * groupName;
+@property (nonatomic, retain) NSString * projectName;
+@property (nonatomic, retain) NSString * ticketID;
+@property (nonatomic, retain) NSString * ticketStatusName;
+@property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * body;
+@property (nonatomic, retain) NSString * assigner;
 
 @end

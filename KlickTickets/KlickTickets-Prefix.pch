@@ -32,6 +32,15 @@
 //RestKit
 #import <RestKit/RestKit.h>
 #import <CoreData/CoreData.h>
+#import <RestKit/CoreData.h>
+
+//MagicalRecord
+#define MR_SHORTHAND
+#import "CoreData+MagicalRecord.h"
+
+//ObjectiveRecord
+//#import "ObjectiveRecord.h"
+
 
 //Stuff
 #import "ObjectiveSugar.h"

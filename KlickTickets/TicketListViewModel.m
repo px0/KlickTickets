@@ -10,21 +10,6 @@
 #import "Ticket+methods.h"
 #import "MRGAppDelegate.h"
 
-#import <CoreData/CoreData.h>
-#import "ObjectMapping.h"
-#import "RKManagedObjectStore.h"
-#import "RKManagedObjectImporter.h"
-#import "RKManagedObjectMappingOperationDataSource.h"
-#import "RKEntityMapping.h"
-#import "RKManagedObjectCaching.h"
-#import "RKInMemoryManagedObjectCache.h"
-#import "RKFetchRequestManagedObjectCache.h"
-
-#import "RKPropertyInspector+CoreData.h"
-#import "NSManagedObjectContext+RKAdditions.h"
-#import "NSManagedObject+RKAdditions.h"
-#import "RKManagedObjectRequestOperation.h" 
-
 @interface TicketListViewModel ()
 
 @end
@@ -50,7 +35,7 @@
 	
 	RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:@"Ticket"
                                                    inManagedObjectStore:AppDelegate.objectStore];
-	[mapping addAttributeMappingsFromDictionary:[Ticket mapping]];
+	[mapping addAttributeMappingsFromDictionary:[Ticket listMapping]];
 	
 	RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping
 																							method:RKRequestMethodGET
@@ -69,6 +54,7 @@
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
 //		[viewModelsSignal sendNext:mappingResult.array];
 		[viewModelsSignal sendCompleted];
+		[self updateAllTickets];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR: %@", error);
         NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
@@ -78,6 +64,44 @@
     [operation start];
 	
 	return viewModelsSignal;
+}
+
++ (void) updateAllTickets; {
+	[[Ticket findAll] each:^(Ticket *t) {
+		[self updateTicket:t];
+	}];
+}
+
++ (void) updateTicket: (Ticket *)ticket; {
+	NSIndexSet *statusCodeSet = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
+	
+	RKEntityMapping *mapping = [RKEntityMapping mappingForEntityForName:@"Ticket"
+                                                   inManagedObjectStore:AppDelegate.objectStore];
+	[mapping addAttributeMappingsFromDictionary:[Ticket detailMapping]];
+	
+	RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping
+																							method:RKRequestMethodGET
+																					   pathPattern:nil
+																						   keyPath:@"Entries"
+																					   statusCodes:statusCodeSet];
+	
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://genome.klick.com:80/api/Ticket/%@.json", ticket.ticketID]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	RKManagedObjectRequestOperation *operation = [[RKManagedObjectRequestOperation alloc] initWithRequest:request
+                                                                                      responseDescriptors:@[responseDescriptor]];
+	
+	operation.managedObjectContext = AppDelegate.objectStore.mainQueueManagedObjectContext;
+	operation.managedObjectCache = AppDelegate.objectStore.managedObjectCache;
+	
+    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+		NSLog(@"Fetched data for Ticket: %@", [(Ticket *)mappingResult.firstObject ticketID]);
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+		NSLog(@"TicketID: %@", ticket.ticketID);
+        NSLog(@"ERROR: %@", error);
+        NSLog(@"Response: %@", operation.HTTPRequestOperation.responseString);
+    }];
+    
+    [operation start];
 }
 
 + (NSFetchRequest *)fetchRequest {
@@ -95,4 +119,6 @@
 												 sectionNameKeyPath:@"projectName"
 														  cacheName:nil];
 }
+
+
 @end

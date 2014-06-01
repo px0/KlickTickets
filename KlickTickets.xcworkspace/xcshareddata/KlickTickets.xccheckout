@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EE70C34E-BC63-4D6F-A4AA-7B746656A263</string>
+	<key>IDESourceControlProjectName</key>
+	<string>KlickTickets</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E574AA71-8EF0-4777-9F5F-86CDD8AA9642</key>
+		<string>https://github.com/px0/KlickTickets</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>KlickTickets.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E574AA71-8EF0-4777-9F5F-86CDD8AA9642</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/px0/KlickTickets</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E574AA71-8EF0-4777-9F5F-86CDD8AA9642</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E574AA71-8EF0-4777-9F5F-86CDD8AA9642</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KlickTickets</string>
+		</dict>
+	</array>
+</dict>
+</plist>

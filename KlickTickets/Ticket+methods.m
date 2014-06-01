@@ -9,13 +9,21 @@
 #import "Ticket+methods.h"
 
 @implementation Ticket (methods)
-+ (NSDictionary *) mapping; {
++ (NSDictionary *) listMapping; {
 	return @{
 			 @"TicketID": @"ticketID",
 			 @"Title": @"title",
 			 @"TicketStatusName": @"ticketStatusName",
 			 @"ProjectName": @"projectName",
 			 @"GroupName": @"groupName",
+			 };
+}
+
++ (NSDictionary *) detailMapping; {
+	return @{
+			 @"TicketID": @"ticketID",
+			 @"Description": @"body",
+			 @"AssignedByUser": @"assigner",
 			 };
 }
 @end

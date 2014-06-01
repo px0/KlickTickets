@@ -10,6 +10,7 @@
 #import "GenomeAuthenticator.h"
 #import "TicketListViewModel.h"
 #import "Ticket.h"
+#import "TicketDetailViewController.h"
 
 //MRGViewController
 @interface MRGViewController ()
@@ -61,7 +62,7 @@
 		NSLog(@"An error has occured: %@", [error localizedDescription]);
 	} completed:^{
 		NSLog(@"You are now authenticated!");
-		[TicketListViewModel getTicketsFromWebservice];
+//		[TicketListViewModel getTicketsFromWebservice];
 	}];
 }
 
@@ -114,5 +115,14 @@
 {
     [self.tableView reloadData];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Assume self.view is the table view
+    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+    Ticket *t = [self.fetchedResultsController objectAtIndexPath:path];
+    [(TicketDetailViewController*)segue.destinationViewController setTicket:t];
+}
+
 
 @end
